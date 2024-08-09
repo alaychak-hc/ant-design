@@ -1,6 +1,7 @@
 import { unit } from '@ant-design/cssinjs';
 import type { CSSObject } from '@ant-design/cssinjs';
 
+import { genCompactItemStyle } from '../../style/compact-item';
 import type { FullToken, GenerateStyle } from '../../theme/internal';
 import { genStyleHooks, mergeToken } from '../../theme/internal';
 import genColorBlockStyle from './color-block';
@@ -68,7 +69,7 @@ const genClearStyle = (
       border: `${unit(lineWidth)} solid ${colorSplit}`,
       position: 'relative',
       overflow: 'hidden',
-      cursor: 'pointer',
+      cursor: 'inherit',
       transition: `all ${token.motionDurationFast}`,
 
       ...extraStyle,
@@ -161,7 +162,7 @@ const genSizeStyle = (token: ColorPickerToken): CSSObject => {
       },
 
       [`${componentCls}-trigger-text`]: {
-        lineHeight: controlHeightXS,
+        lineHeight: unit(controlHeightXS),
       },
     },
   };
@@ -284,6 +285,10 @@ const genColorPickerStyle: GenerateStyle<ColorPickerToken> = (token) => {
         ...genRtlStyle(token),
       },
     },
+
+    genCompactItemStyle(token, {
+      focusElCls: `${componentCls}-trigger-active`,
+    }),
   ];
 };
 
